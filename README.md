@@ -1,49 +1,16 @@
-# BigFoot Django project
+# BigFoot Django project demonstrating rolling deployments
 
-## Installation
+Demo project for the DjangoCon EU 2024 workshop "" by @akalipetis
 
-Tested only with Python 3.9.
+## Useful links
 
-1. Install requirements using `pipenv`:
+* [Slides](https://docs.google.com/presentation/d/14zQtVBJtLkQAso1Hdyzim4GhocUYaENTPz7m604BhIg)
+* [Upsun Console](https://console.upsun.com/)
 
-   ```bash
-   pipenv install
-   ```
+### Upsun CLI installation
 
-1. Start the PostGreSQL container:
-
-   ```bash
-   docker-compose up -d
-   ```
-
-2. `pyscopg2` library requires PostgreSQL to be installed on the system.
-   (E.x: you might get `pg_config executable not found` errors during installation)
-
-   Make sure PostgreSQL is installed on the host:
-
-   ```
-   > brew install postgresql           # MacOS
-   > sudo apt-get install postgresql   # Ubuntu
-   ```
-
-3. The database user/name are set to `bigfoot` by default. So, you might
-   need to run:
-   
-   ```
-   > sudo -u postgres psql
-   postgres> createdb bigfoot && createuser -s bigfoot
-   ```
-
-
-4. Generate fake data:
-   
-   ```bash
-   pipenv run python manage.py migrate
-   pipenv run python manage.py generate_fake_data
-   ```
-
-5. Run server with `blackfire-python`:
-
-   ```bash
-   blackfire-python manage.py runserver
-   ```
+```bash
+curl -fsSL https://raw.githubusercontent.com/platformsh/cli/main/installer.sh | VENDOR=upsun bash
+# Or using HomeBrew directly
+brew install platformsh/tap/upsun-cli
+```

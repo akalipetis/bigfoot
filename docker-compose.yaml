@@ -1,10 +1,31 @@
-version: "3.8"
-  
 services:
-    db:
-        image: "postgres:latest"
+    old:
+        build: ./old/
         ports:
-            - 5432:5432
+            - 8000:8000
+        volumes:
+            - ./old:/usr/src/app
+        depends_on:
+            - postgres
+        command: python manage.py runserver 0.0.0.0:8000
+
+    new:
+        build: ./new/
+        ports:
+            - 8001:8000
+        volumes:
+            - ./new:/usr/src/app
+        depends_on:
+            - postgres
+        command: python manage.py runserver 0.0.0.0:8000
+
+    postgres:
+        image: postgres
         environment:
             POSTGRES_USER: bigfoot
             POSTGRES_PASSWORD: bigfoot
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+volumes:
+    postgres_data:
